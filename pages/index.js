@@ -121,7 +121,7 @@ export default function Home({ books, users }) {
               <Avatar alt={v.owner} src={findPfpbyname(v.owner)}></Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={<><Typography color='Highlight' ><Link href={`user/${v.owner}`}>{v.owner}</Link></Typography><Typography>{new Date(v.bumped_on).toDateString()}</Typography></>}
+              primary={<><Typography color='Highlight' ><Link href={`/user/${v.owner}`}>{v.owner}</Link></Typography><Typography>{new Date(v.bumped_on).toDateString()}</Typography></>}
               secondary={`Listed a book---${v.name}`}
             ></ListItemText>
           </ListItem>

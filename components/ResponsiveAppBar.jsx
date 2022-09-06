@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,8 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import BookTwoToneIcon from '@mui/icons-material/BookTwoTone';
+import  Badge  from '@mui/material/Badge';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+
 export default function ResponsiveAppBar({
   session,
   signIn,
@@ -21,9 +23,14 @@ export default function ResponsiveAppBar({
   name,
   signOut,
 }) {
+  useEffect(()=>{
+    fetch(`/api/user/requests/${name}`).then((async val=> await val.json()))
+    .then(res=>setNoti(res.length))
+  },[name])
   const pages = ['users', 'create'];
   const settings = ['Requests', 'Logout'];
   const router = useRouter()
+  const [noti,setNoti] = useState(0)
   const [anchorElNav, setAnchorElNav] = useState('');
   const [anchorElUser, setAnchorElUser] = useState('');
   const handleOpenNavMenu = (e) => {
@@ -166,11 +173,19 @@ export default function ResponsiveAppBar({
             </Box>
           ) : (
             <>
-              <Link href={`/user/${name}`}><Typography sx={{cursor:'pointer'}}>{name}</Typography></Link> 
+              <Link href={`/user/${name}`}>
+                <Typography sx={{ cursor: 'pointer' }}>{name}</Typography>
+              </Link>
               <Box sx={{ ml: 2, flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt={name} src={pfp} />
+                    <Badge
+                      color="secondary"
+                      overlap="circular"
+                      badgeContent={noti}
+                    >
+                      <Avatar alt={name} src={pfp} />
+                    </Badge>
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -191,9 +206,7 @@ export default function ResponsiveAppBar({
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        <Button onClick={settingHandler}>
-                          {setting}
-                        </Button>
+                      <Button onClick={settingHandler}>{setting}</Button>
                     </MenuItem>
                   ))}
                 </Menu>

@@ -4,5 +4,4 @@ const UserSchema = new mongoose.Schema({
   email: String,
   image: String,
 });
-
 module.exports = mongoose.models.users || mongoose.model('users', UserSchema);

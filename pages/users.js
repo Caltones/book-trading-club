@@ -68,7 +68,7 @@ export default function Users({ books, users }) {
 export async function getServerSideProps() {
   // Fetch data from external API
   await dbConnect();
-  let userdata = await Users_model.find({}).select('-_id name image');
+  let userdata = await Users_model.find({}).select('name image');
   let bookdata = await Books_model.find({}).select('-_id');
   return {
     props: {
