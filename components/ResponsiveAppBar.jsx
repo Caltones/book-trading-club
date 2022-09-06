@@ -180,7 +180,7 @@ export default function ResponsiveAppBar({
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Badge
-                      color="secondary"
+                      color="info"
                       overlap="circular"
                       badgeContent={noti}
                     >

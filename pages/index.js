@@ -68,7 +68,6 @@ export default function Home({ books, users }) {
       return
     }
     const tempArr = e.target.id.split(',');
-    console.log(session?.user?.name , tempArr[0])
     if (session?.user?.name === tempArr[0]) {
       setOpen(true);
       setSncakBarStr("You can't trade with youself!");
